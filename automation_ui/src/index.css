@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme {
+  /* Custom Colors */
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+  --color-primary-950: #082f49;
+
+  --color-secondary-50: #f5f3ff;
+  --color-secondary-100: #ede9fe;
+  --color-secondary-200: #ddd6fe;
+  --color-secondary-300: #c4b5fd;
+  --color-secondary-400: #a78bfa;
+  --color-secondary-500: #8b5cf6;
+  --color-secondary-600: #7c3aed;
+  --color-secondary-700: #6d28d9;
+  --color-secondary-800: #5b21b6;
+  --color-secondary-900: #4c1d95;
+  --color-secondary-950: #2e1065;
+
+  --color-dark-bg: #0f172a;
+  --color-dark-surface: #1e293b;
+  --color-dark-border: #334155;
+
+  /* Custom Fonts */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Outfit', ui-sans-serif, system-ui;
+
+  /* Custom Animations */
+  --animate-fade-in: fadeIn 0.5s ease-out;
+  --animate-slide-up: slideUp 0.5s ease-out;
+  --animate-slide-down: slideDown 0.5s ease-out;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-bounce-in: bounceIn 0.6s ease-out;
+  --animate-spin-slow: spin 8s linear infinite;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes bounceIn {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+
+    50% {
+      transform: scale(1.02);
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-slate-900 antialiased min-h-screen;
+  }
+}
+
+@layer components {
+
+  /* Enhanced Button Styles */
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-2xl hover:shadow-primary-500/50 active:transform active:scale-95 border-2 border-primary-500/20 hover:border-primary-400 animate-fade-in relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-200%] hover:before:translate-x-[200%] before:transition-transform before:duration-700;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-gradient-to-r from-secondary-600 to-secondary-700 text-white rounded-xl hover:from-secondary-700 hover:to-secondary-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-2xl hover:shadow-secondary-500/50 active:transform active:scale-95 border-2 border-secondary-500/20 hover:border-secondary-400 animate-fade-in relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-200%] hover:before:translate-x-[200%] before:transition-transform before:duration-700;
+  }
+
+  /* Enhanced Card Styles */
+  .card {
+    @apply bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border-2 border-slate-200/50 hover:shadow-2xl hover:border-primary-300/50 transition-all duration-300 hover:-translate-y-1 animate-slide-up;
+  }
+
+  .card-glass {
+    @apply bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-2xl border-2 border-white/50 hover:border-primary-300/70 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] animate-bounce-in;
+  }
+
+  .card-glass:hover {
+    box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-gradient-border {
+    @apply relative p-8 rounded-2xl animate-bounce-in before:absolute before:inset-0 before:rounded-2xl before:p-[2px] before:bg-gradient-to-r before:from-primary-500 before:via-secondary-500 before:to-primary-500 before:-z-10 before:animate-spin-slow;
+    background: white;
+  }
+
+  /* Enhanced Input Styles */
+  .input-field {
+    @apply w-full px-5 py-3 rounded-xl border-2 border-slate-300 focus:border-primary-500 focus:ring-4 focus:ring-primary-200/50 outline-none transition-all duration-300 bg-white/80 backdrop-blur-sm hover:border-slate-400 hover:shadow-md placeholder:text-slate-400;
+  }
+
+  .input-field-glow {
+    @apply w-full px-5 py-3 rounded-xl border-2 border-slate-300 focus:border-primary-500 focus:ring-4 focus:ring-primary-300/50 focus:shadow-lg focus:shadow-primary-500/30 outline-none transition-all duration-300 bg-white/90 backdrop-blur-sm hover:border-slate-400 hover:shadow-md placeholder:text-slate-400 animate-fade-in;
+  }
+
+  /* Gradient Headers */
+  .gradient-header-primary {
+    @apply bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white p-10 text-center rounded-t-2xl border-b-4 border-primary-500/30 shadow-inner animate-slide-down;
+  }
+
+  .gradient-header-secondary {
+    @apply bg-gradient-to-br from-secondary-600 via-secondary-700 to-secondary-800 text-white p-10 text-center rounded-t-2xl border-b-4 border-secondary-500/30 shadow-inner animate-slide-down;
+  }
+
+  /* Animated Borders */
+  .border-glow {
+    @apply border-2 border-primary-400 animate-pulse-slow;
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+  }
+
+  .border-gradient {
+    @apply border-2 border-transparent bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-border;
+  }
+
+  /* Alert/Error Styles */
+  .alert-error {
+    @apply mb-6 p-4 bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-500 text-red-700 text-sm rounded-lg shadow-md animate-slide-down;
+  }
+
+  .alert-success {
+    @apply mb-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-700 text-sm rounded-lg shadow-md animate-slide-down;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+}

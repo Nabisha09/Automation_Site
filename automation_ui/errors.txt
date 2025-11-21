@@ -1,0 +1,4 @@
+﻿src/App.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/App.tsx(11,37): error TS6133: 'role' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(4,10): error TS1484: 'RootState' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/store/slices/authSlice.ts(28,31): error TS6133: 'action' is declared but its value is never read.
