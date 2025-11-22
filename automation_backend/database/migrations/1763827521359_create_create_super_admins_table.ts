@@ -1,7 +1,7 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'users'
+  protected tableName = 'super_admins'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
@@ -9,7 +9,6 @@ export default class extends BaseSchema {
       table.string('full_name').nullable()
       table.string('email', 254).notNullable().unique()
       table.string('password').notNullable()
-      table.enum('role', ['SUPER_ADMIN', 'SUB_ADMIN']).defaultTo('SUB_ADMIN').notNullable()
 
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()

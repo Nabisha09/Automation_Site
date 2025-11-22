@@ -1,7 +1,7 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'automation_data'
+  protected tableName = 'admin_add_data_and_super_admin_add_data'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
@@ -10,7 +10,8 @@ export default class extends BaseSchema {
       table.integer('limit_email_number').notNullable()
       table.string('status').notNullable()
       table.string('next_status').nullable()
-      table.integer('created_by_user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+      table.integer('created_by_admin_id').unsigned().nullable().references('id').inTable('admins').onDelete('CASCADE')
+      table.integer('created_by_super_admin_id').unsigned().nullable().references('id').inTable('super_admins').onDelete('CASCADE')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

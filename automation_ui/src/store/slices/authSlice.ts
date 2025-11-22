@@ -25,7 +25,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        loginRequest: (state, _action: PayloadAction<{ email: string; password: string }>) => {
+        loginRequest: (state, _action: PayloadAction<{ email: string; password: string; userType: 'superadmin' | 'admin' }>) => {
             state.loading = true;
             state.error = null;
         },
@@ -38,7 +38,7 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
-        registerRequest: (state, _action: PayloadAction<{ fullName: string; email: string; password: string; role: 'SUPER_ADMIN' | 'SUB_ADMIN' }>) => {
+        registerRequest: (state, _action: PayloadAction<{ fullName: string; email: string; password: string; userType: 'superadmin' | 'admin' }>) => {
             state.loading = true;
             state.error = null;
         },

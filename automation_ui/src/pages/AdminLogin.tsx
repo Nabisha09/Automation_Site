@@ -14,7 +14,7 @@ const AdminLogin: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        dispatch(loginRequest({ email, password }));
+        dispatch(loginRequest({ email, password, userType: 'admin' }));
     };
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const AdminLogin: React.FC = () => {
     }, [isAuthenticated, user, navigate]);
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 font-sans overflow-y-auto bg-slate-50/50">
+        <div className="min-h-screen flex items-center justify-center p-4 font-sans overflow-y-auto">
             <div className="max-w-md w-full card-glass transform transition-all duration-300 my-8">
                 <div className="gradient-header-secondary flex flex-col items-center py-6">
                     <div className="w-16 h-16 bg-white rounded-full p-1 shadow-lg mb-3 flex items-center justify-center overflow-hidden">

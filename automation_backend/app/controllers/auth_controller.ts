@@ -1,43 +1,73 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import User from '#models/user'
+import SuperAdmin from '#models/super_admin'
+import Admin from '#models/admin'
 
 export default class AuthController {
-    async login({ request, response, auth }: HttpContext) {
+    async superAdminLogin({ request, response, auth }: HttpContext) {
         const { email, password } = request.only(['email', 'password'])
 
         try {
-            const user = await User.verifyCredentials(email, password)
-            await auth.use('web').login(user)
-            return response.ok({ user })
+            const superAdmin = await SuperAdmin.verifyCredentials(email, password)
+            await auth.use('superAdmin').login(superAdmin)
+            return response.ok({ user: superAdmin, type: 'SUPER_ADMIN' })
         } catch (error) {
+            console.error('SuperAdmin login error:', error)
             return response.unauthorized({ message: 'Invalid credentials' })
         }
     }
 
-    async register({ request, response, auth }: HttpContext) {
-        const data = request.only(['fullName', 'email', 'password', 'role'])
-
-        // Basic validation could be added here or using a validator
-        if (!['SUPER_ADMIN', 'SUB_ADMIN'].includes(data.role)) {
-            return response.badRequest({ message: 'Invalid role' })
-        }
+    async adminLogin({ request, response, auth }: HttpContext) {
+        const { email, password } = request.only(['email', 'password'])
 
         try {
-            const user = await User.create(data)
-            await auth.use('web').login(user)
-            return response.created({ user })
+            const admin = await Admin.verifyCredentials(email, password)
+            await auth.use('admin').login(admin)
+            return response.ok({ user: admin, type: 'ADMIN' })
         } catch (error) {
+            console.error('Admin login error:', error)
+            return response.unauthorized({ message: 'Invalid credentials' })
+        }
+    }
+
+    async superAdminRegister({ request, response, auth }: HttpContext) {
+        const data = request.only(['fullName', 'email', 'password'])
+
+        try {
+            const superAdmin = await SuperAdmin.create(data)
+            await auth.use('superAdmin').login(superAdmin)
+            return response.created({ user: superAdmin, type: 'SUPER_ADMIN' })
+        } catch (error: any) {
+            return response.badRequest({ message: 'Registration failed', error: error.message })
+        }
+    }
+
+    async adminRegister({ request, response, auth }: HttpContext) {
+        const data = request.only(['fullName', 'email', 'password'])
+
+        try {
+            const admin = await Admin.create(data)
+            await auth.use('admin').login(admin)
+            return response.created({ user: admin, type: 'ADMIN' })
+        } catch (error: any) {
             return response.badRequest({ message: 'Registration failed', error: error.message })
         }
     }
 
     async logout({ auth, response }: HttpContext) {
-        await auth.use('web').logout()
+        await auth.use('superAdmin').logout()
+        await auth.use('admin').logout()
         return response.ok({ message: 'Logged out' })
     }
 
     async me({ auth, response }: HttpContext) {
-        await auth.check()
-        return response.ok({ user: auth.user })
+        if (await auth.use('superAdmin').check()) {
+            return response.ok({ user: auth.use('superAdmin').user, type: 'SUPER_ADMIN' })
+        }
+
+        if (await auth.use('admin').check()) {
+            return response.ok({ user: auth.use('admin').user, type: 'ADMIN' })
+        }
+
+        return response.unauthorized({ message: 'Not authenticated' })
     }
 }

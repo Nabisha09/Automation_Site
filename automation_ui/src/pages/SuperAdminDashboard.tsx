@@ -53,7 +53,7 @@ const SuperAdminDashboard: React.FC = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4 font-sans">
-            <div className="max-w-6xl w-full card-glass transform transition-all duration-300">
+            <div className="max-w-6xl w-full card-glass transform transition-all duration-300 animate-float">
                 <div className="gradient-header-primary flex justify-between items-center">
                     <div>
                         <h1 className="text-3xl font-bold text-white mb-1 font-display text-glow">Super Admin Dashboard</h1>

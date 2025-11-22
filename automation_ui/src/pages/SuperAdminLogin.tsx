@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from '../store/slices/authSlice';
 import type { RootState } from '../store';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SuperAdminLogin: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -14,17 +14,17 @@ const SuperAdminLogin: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        dispatch(loginRequest({ email, password }));
+        dispatch(loginRequest({ email, password, userType: 'superadmin' }));
     };
 
     useEffect(() => {
         if (isAuthenticated && user?.role === 'SUPER_ADMIN') {
-            navigate('/superadmin/dashboard');
+            navigate('/super-admin/dashboard');
         }
     }, [isAuthenticated, user, navigate]);
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 font-sans overflow-y-auto bg-slate-50/50">
+        <div className="min-h-screen flex items-center justify-center p-4 font-sans overflow-y-auto">
             <div className="max-w-md w-full card-glass transform transition-all duration-300 my-8">
                 <div className="gradient-header-primary flex flex-col items-center py-6">
                     <div className="w-16 h-16 bg-white rounded-full p-1 shadow-lg mb-3 flex items-center justify-center overflow-hidden">
